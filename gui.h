@@ -7,4 +7,6 @@
 static void render(GtkApplication *app, gpointer data);
 
 int gtkMain();
+void refreshLabels();
+extern GtkWidget *letter1, *letter2, *letter3, *letter4, *letter5;
 #endif
