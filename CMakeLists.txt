@@ -28,11 +28,6 @@ ENDIF (APPLE)
 
 add_executable(wordle ${GUI_TYPE} app.c common.c gui.c event.c)
 target_link_libraries(wordle gtk-3 gobject-2.0 gio-2.0)
-FILE(WRITE ${CMAKE_SOURCE_DIR}/etc/gtk-3.0/settings.ini
-"[Settings]\n"
-"gtk-theme-name=Windows10\n"
-"gtk-font-name=Segoe UI 9\n"
-)
 if (MSVC)
 install(FILES ${GTK_DIR}/bin/gtk-3-vs16.dll DESTINATION Wordle)
 install(FILES ${GTK_DIR}/bin/gdk-3-vs16.dll DESTINATION Wordle)
@@ -58,7 +53,5 @@ install(FILES ${GTK_DIR}/bin/fontconfig-1.dll DESTINATION Wordle)
 install(FILES ${GTK_DIR}/bin/freetype-6.dll DESTINATION Wordle)
 install(FILES ${GTK_DIR}/bin/libpng16.dll DESTINATION Wordle)
 install(FILES ${GTK_DIR}/bin/expat.dll DESTINATION Wordle)
-install(DIRECTORY ${GTK_DIR}/../../../build/x64/release/adwaita-icon-theme/Adwaita DESTINATION Wordle/share/themes)
 install(FILES ${CMAKE_SOURCE_DIR}/Debug/wordle.exe DESTINATION Wordle)
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/etc DESTINATION Wordle)
 endif()
