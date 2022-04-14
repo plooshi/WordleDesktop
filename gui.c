@@ -1,6 +1,10 @@
 #include "event.h"
 #include "gui.h"
 
+int colorizeScore() {
+    
+}
+
 static void render(GtkApplication* app, gpointer user_data)
 {
     GtkWidget *window;

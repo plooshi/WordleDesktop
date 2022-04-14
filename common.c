@@ -1,7 +1,49 @@
 #include "common.h"
 #include <string.h>
+#include <stdlib.h>
+#include <malloc.h>
 
 char *guess = "";
+char *todaysWordle = "";
+
+int scoreLetter(char *letter, int pos) {
+    if (strchr(todaysWordle, (int)(letter[0])) != NULL) return 1;
+    if (strcmp((const char *)letter, (const char *)todaysWordle[pos]) == 0) return 2;
+    return 0;
+}
+
+#ifdef _MSC_VER
+char *strsep(char **stringp, const char *delim) {
+  if (*stringp == NULL) { return NULL; }
+  char *token_start = *stringp;
+  *stringp = strpbrk(token_start, delim);
+  if (*stringp) {
+    **stringp = '\0';
+    (*stringp)++;
+  }
+  return token_start;
+}
+#endif
+
+int *score(char *guess) {
+    char *token, *str, *tofree;
+    static int scores[5] = {0, 0, 0, 0, 0};
+    int x = 0;
+    #ifdef _MSC_VER
+    tofree = str = _strdup(guess);
+    #else
+    tofree = str = strdup(guess);
+    #endif
+    while ((token = strsep(&str, ""))) {
+        int scored = scoreLetter(token, x);
+        if (scored != 0) {
+            scores[x] = scored;
+        }
+        x++;
+    }
+    free(tofree);
+    return scores;
+}
 
 bool string_in(char *my_str, char *string_list[])
 {

@@ -1,4 +1,5 @@
 #include "gui.h"
+#include "gdk/gdkkeysyms.h"
 #pragma once
 #ifndef EVENT_INCL
 #define EVENT_INCL 1
