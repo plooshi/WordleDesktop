@@ -1,4 +1,5 @@
 #include "event.h"
+#include "gui.h"
 
 static void render(GtkApplication* app, gpointer user_data)
 {
