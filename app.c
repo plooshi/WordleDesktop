@@ -13,6 +13,9 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 int main(int argc, char **argv)
 #endif 
 {
+  #ifdef _WIN32
+  SetEnvironmentVariableA("GTK_CSD", "0");
+  #endif
   gtkMain(
   #ifndef _WIN32
   argc, argv
