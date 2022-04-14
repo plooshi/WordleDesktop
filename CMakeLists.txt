@@ -1,8 +1,8 @@
 project(Wordle)
 cmake_minimum_required(VERSION 3.8)
 
-if (GTK_DIR)
-else()
+if (MSVC)
+if (!GTK_DIR)
 message("GTK_DIR not set, dont question if there are errors. To set it please add -DGTK_DIR:PATH=<path to GTK and dependencies directory>")
 endif()
 include_directories(
@@ -17,18 +17,29 @@ include_directories(
     ${GTK_DIR}/lib/glib-2.0/include
 )
 link_directories(${GTK_DIR}/lib)
+endif()
 
-IF(WIN32)
-SET(GUI_TYPE WIN32)
-ENDIF(WIN32)
+if (WIN32)
+set(GUI_TYPE WIN32)
+endif()
 
-IF(APPLE)
-SET(GUI_TYPE MACOSX_BUNDLE)
-ENDIF (APPLE)
+if (APPLE)
+set(GUI_TYPE MACOSX_BUNDLE)
+endif()
+
+if (UNIX)
+find_package(PkgConfig)
+pkg_check_modules(GTK gtk+-3.0)
+include_directories(include ${GTK_INCLUDE_DIRS})
+link_directories(${GTK_LIBRARY_DIRS})
+endif()
 
 add_executable(wordle ${GUI_TYPE} app.c common.c gui.c event.c)
-target_link_libraries(wordle gtk-3 gobject-2.0 gio-2.0)
+if (UNIX)
+target_link_libraries(wordle ${GTK_LIBRARIES})
+endif()
 if (MSVC)
+target_link_libraries(wordle gtk-3 gobject-2.0 gio-2.0)
 install(FILES ${GTK_DIR}/bin/gtk-3-vs16.dll DESTINATION Wordle)
 install(FILES ${GTK_DIR}/bin/gdk-3-vs16.dll DESTINATION Wordle)
 install(FILES ${GTK_DIR}/bin/gobject-2.0-0.dll DESTINATION Wordle)
