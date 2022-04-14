@@ -1,3 +1,4 @@
+#include "gui.h"
 #pragma once
 #ifndef EVENT_INCL
 #define EVENT_INCL 1
