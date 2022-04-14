@@ -8,7 +8,7 @@ char *todaysWordle = "";
 
 int scoreLetter(char *letter, int pos) {
     if (strchr(todaysWordle, (int)(letter[0])) != NULL) return 1;
-    if (strcmp((const char *)letter, (const char *)todaysWordle[pos]) == 0) return 2;
+    if ((char)letter[0] == (char)todaysWordle[pos]) return 2;
     return 0;
 }
 
