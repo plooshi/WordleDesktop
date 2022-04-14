@@ -1,5 +1,4 @@
 #include "common.h"
-#include <stdbool.h>
 #include <string.h>
 
 char *guess = "";

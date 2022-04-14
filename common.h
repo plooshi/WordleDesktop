@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #pragma once
 #ifndef COMMON_INCL
 #define COMMON_INCL 1
