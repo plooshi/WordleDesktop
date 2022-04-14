@@ -1,0 +1,64 @@
+project(Wordle)
+cmake_minimum_required(VERSION 3.8)
+
+if (GTK_DIR)
+else()
+message("GTK_DIR not set, dont question if there are errors. To set it please add -DGTK_DIR:PATH=<path to GTK and dependencies directory>")
+endif()
+include_directories(
+    ${GTK_DIR}/include
+    ${GTK_DIR}/include/gtk-3.0
+    ${GTK_DIR}/include/glib-2.0
+    ${GTK_DIR}/include/pango-1.0
+    ${GTK_DIR}/include/harfbuzz
+    ${GTK_DIR}/include/cairo
+    ${GTK_DIR}/include/gdk-pixbuf-2.0
+    ${GTK_DIR}/include/atk-1.0
+    ${GTK_DIR}/lib/glib-2.0/include
+)
+link_directories(${GTK_DIR}/lib)
+
+IF(WIN32)
+SET(GUI_TYPE WIN32)
+ENDIF(WIN32)
+
+IF(APPLE)
+SET(GUI_TYPE MACOSX_BUNDLE)
+ENDIF (APPLE)
+
+add_executable(wordle ${GUI_TYPE} app.c common.c gui.c event.c)
+target_link_libraries(wordle gtk-3 gobject-2.0 gio-2.0)
+FILE(WRITE ${CMAKE_SOURCE_DIR}/etc/gtk-3.0/settings.ini
+"[Settings]\n"
+"gtk-theme-name=Windows10\n"
+"gtk-font-name=Segoe UI 9\n"
+)
+if (MSVC)
+install(FILES ${GTK_DIR}/bin/gtk-3-vs16.dll DESTINATION Wordle)
+install(FILES ${GTK_DIR}/bin/gdk-3-vs16.dll DESTINATION Wordle)
+install(FILES ${GTK_DIR}/bin/gobject-2.0-0.dll DESTINATION Wordle)
+install(FILES ${GTK_DIR}/bin/gio-2.0-0.dll DESTINATION Wordle)
+install(FILES ${GTK_DIR}/bin/glib-2.0-0.dll DESTINATION Wordle)
+install(FILES ${GTK_DIR}/bin/gdk_pixbuf-2.0-0.dll DESTINATION Wordle)
+install(FILES ${GTK_DIR}/bin/gmodule-2.0-0.dll DESTINATION Wordle)
+install(FILES ${GTK_DIR}/bin/ffi-7.dll DESTINATION Wordle)
+install(FILES ${GTK_DIR}/bin/intl-8.dll DESTINATION Wordle)
+install(FILES ${GTK_DIR}/bin/intl.dll DESTINATION Wordle)
+install(FILES ${GTK_DIR}/bin/pangocairo-1.0-0.dll DESTINATION Wordle)
+install(FILES ${GTK_DIR}/bin/pango-1.0-0.dll DESTINATION Wordle)
+install(FILES ${GTK_DIR}/bin/pangoft2-1.0-0.dll DESTINATION Wordle)
+install(FILES ${GTK_DIR}/bin/pangowin32-1.0-0.dll DESTINATION Wordle)
+install(FILES ${GTK_DIR}/bin/cairo.dll DESTINATION Wordle)
+install(FILES ${GTK_DIR}/bin/cairo-gobject.dll DESTINATION Wordle)
+install(FILES ${GTK_DIR}/bin/fribidi-0.dll DESTINATION Wordle)
+install(FILES ${GTK_DIR}/bin/harfbuzz.dll DESTINATION Wordle)
+install(FILES ${GTK_DIR}/bin/epoxy-0.dll DESTINATION Wordle)
+install(FILES ${GTK_DIR}/bin/atk-1.0-0.dll DESTINATION Wordle)
+install(FILES ${GTK_DIR}/bin/fontconfig-1.dll DESTINATION Wordle)
+install(FILES ${GTK_DIR}/bin/freetype-6.dll DESTINATION Wordle)
+install(FILES ${GTK_DIR}/bin/libpng16.dll DESTINATION Wordle)
+install(FILES ${GTK_DIR}/bin/expat.dll DESTINATION Wordle)
+install(DIRECTORY ${GTK_DIR}/../../../build/x64/release/adwaita-icon-theme/Adwaita DESTINATION Wordle/share/themes)
+install(FILES ${CMAKE_SOURCE_DIR}/Debug/wordle.exe DESTINATION Wordle)
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/etc DESTINATION Wordle)
+endif()
