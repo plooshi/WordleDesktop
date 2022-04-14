@@ -5,5 +5,5 @@
 extern char* wordles[];
 extern char* validGuesses[];
 bool guessValid(char* guess);
-char *guess;
+extern char *guess;
 #endif
