@@ -8,6 +8,7 @@ GtkWidget *letter2;
 GtkWidget *letter3;
 GtkWidget *letter4;
 GtkWidget *letter5;
+GtkWidget *window;
 
 void colorizeOut(int val, GtkWidget *label) {
     char *format;
@@ -28,10 +29,18 @@ void colorizeOut(int val, GtkWidget *label) {
     gtk_label_set_markup(GTK_LABEL(label), markup);
 }
 
+void colorLabels() {
+    colorizeOut(scoreLetter(guessa[0], 0), letter1);
+    colorizeOut(scoreLetter(guessa[1], 1), letter2);
+    colorizeOut(scoreLetter(guessa[2], 2), letter3);
+    colorizeOut(scoreLetter(guessa[3], 3), letter4);
+    colorizeOut(scoreLetter(guessa[4], 4), letter5);
+}
+
 GtkWidget *guessRow(GtkListBox *list_box) {
     GtkWidget
     *row = gtk_list_box_row_new(),
-    *hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+    *hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
 
     updateGuessArray();
 
@@ -41,11 +50,11 @@ GtkWidget *guessRow(GtkListBox *list_box) {
     letter4 = gtk_label_new(guessa[3]);
     letter5 = gtk_label_new(guessa[4]);
     
-    colorizeOut(scoreLetter(guessa[0], 0), letter1);
+    /*colorizeOut(scoreLetter(guessa[0], 0), letter1);
     colorizeOut(scoreLetter(guessa[1], 1), letter2);
     colorizeOut(scoreLetter(guessa[2], 2), letter3);
     colorizeOut(scoreLetter(guessa[3], 3), letter4);
-    colorizeOut(scoreLetter(guessa[4], 4), letter5);
+    colorizeOut(scoreLetter(guessa[4], 4), letter5);*/
 
     gtk_container_add(GTK_CONTAINER(row), hbox);
     gtk_box_pack_start(GTK_BOX(hbox), letter1, FALSE, FALSE, 0);
@@ -66,21 +75,24 @@ void refreshLabels() {
     gtk_label_set_text(GTK_LABEL(letter5), guessa[4]);
 }
 
+void createRow() {
+    GtkWidget *list_box = gtk_list_box_new();
+    GtkWidget *row = guessRow(GTK_LIST_BOX(list_box));
+    gtk_container_add(GTK_CONTAINER(window), list_box);
+    gtk_widget_show_all(row);
+    gtk_widget_show_all(list_box);
+}
+
 
 static void render(GtkApplication* app, gpointer user_data)
 {
-    GtkWidget *window;
     
     window = gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), "Wordle");
     gtk_window_set_default_size(GTK_WINDOW(window), 500, 700);
     gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
     g_signal_connect(window, "key-press-event", G_CALLBACK(on_key_press), NULL);
-    GtkWidget *list_box = gtk_list_box_new();
-    GtkWidget *row = guessRow(GTK_LIST_BOX(list_box));
-    gtk_container_add(GTK_CONTAINER(window), list_box);
-    gtk_widget_show_all(row);
-    gtk_widget_show_all(list_box);
+    createRow();
     gtk_widget_show_all(window);
 }
 

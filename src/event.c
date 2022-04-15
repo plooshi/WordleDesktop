@@ -1,31 +1,24 @@
 #include "event.h"
 #include "common.h"
 
-void removeChar(char *str, char c) {
-    char *string1 = str;
-    char *string2 = str;
-    for(; *string2 != 0; string1++) {
-        if (*string1 == c && *string1) continue;
-        *string2 = *string1;
-        string2++;
-        if (!*string1) return;
-    }
-}
-
 
 gboolean on_key_press (GtkWidget *widget, GdkEventKey *event, gpointer user_data)
 {
    gchar* key = event->string;
    guint keyval = event->keyval;
     if (keyval == GDK_KEY_Return) {
-        if (guesses >= 6) return false;
+        //if (guesses >= 6) return false;
         if (strlen(guess) < 5) return false;
         if (!guessValid(guess)) return false;
-        guesses += 1;
+        //guesses++;
         //colorizeScore(score(guess));
-        guess = "";
+        
+        guess = "     ";
         updateGuessArray();
+        guess = "";
+        createRow();
         refreshLabels();
+        colorLabels();
 
         return true;
     }
@@ -36,13 +29,16 @@ gboolean on_key_press (GtkWidget *widget, GdkEventKey *event, gpointer user_data
         return true;
     }
     char *ng = guess;
+    if (strlen(guess) >= 5) return false;
+    //if (guesses >= 6) return false;
     #ifdef _MSC_VER
-        strcat_s(ng, 5, (char*)key);
+        strcat_s(ng, 6, (char*)key);
     #else
         strcat(ng, (char*)key);
     #endif
     guess = ng;
     updateGuessArray();
     refreshLabels();
+    //colorLabels();
     return true;
 }

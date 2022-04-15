@@ -19,7 +19,6 @@ Debug
 Release
 wordle.dir
 testing
-etc
 Makefile
 install_manifest.txt
 build

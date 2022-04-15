@@ -8,8 +8,10 @@ bool guessValid(char *guess);
 int scoreLetter(char *letter, int pos);
 void updateWordle();
 void updateGuessArray();
+void checkWin(char* guess);
 extern char *guessa[];
 extern char *guess;
 extern char *todaysWordle;
 extern int guesses;
+extern bool won;
 #endif
