@@ -55,7 +55,7 @@ int scoreLetter(char *letter, int pos) {
     return 0;
 }
 
-bool string_in(char *my_str, char *string_list[])
+bool string_in(char *my_str, char **string_list)
 {
     for ( int i = 0; i < (sizeof(string_list) / sizeof(string_list[0])); ++i )
         if (!strcmp(my_str, string_list[i]))
