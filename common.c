@@ -4,7 +4,7 @@
 #include <malloc.h>
 #include <time.h>
 
-char *guessa[5] = {"m", "i", "n", "c", "e"};
+char *guessa[] = {"m", "i", "n", "c", "e"};
 char *guess = "";
 int ccharg = 0;
 char *todaysWordle = "";

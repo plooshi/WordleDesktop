@@ -75,6 +75,7 @@ static void render(GtkApplication* app, gpointer user_data)
     gtk_window_set_title(GTK_WINDOW(window), "Wordle");
     gtk_window_set_default_size(GTK_WINDOW(window), 500, 700);
     gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
+    g_signal_connect(window, "key-press-event", G_CALLBACK(on_key_press), NULL);
     GtkWidget *list_box = gtk_list_box_new();
     GtkWidget *row = guessRow(GTK_LIST_BOX(list_box));
     gtk_container_add(GTK_CONTAINER(window), list_box);
@@ -94,7 +95,6 @@ int gtkMain(int argc, char *argv[])
         G_APPLICATION_FLAGS_NONE
     );
     g_signal_connect(app, "activate", G_CALLBACK(render), NULL);
-    g_signal_connect(app, "key_press_event", G_CALLBACK(on_key_press), NULL);
 #ifdef _WIN32
     int status = g_application_run (G_APPLICATION (app), 0, NULL);
 #else
