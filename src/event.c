@@ -23,7 +23,9 @@ gboolean on_key_press (GtkWidget *widget, GdkEventKey *event, gpointer user_data
         return true;
     }
     if (keyval == GDK_KEY_BackSpace) {
-        guess[strlen(guess)-1] = '\0';
+        char* ng = guess;
+        ng[strlen(guess)-1] = '\0';
+        ng = guess;
         updateGuessArray();
         refreshLabels();
         return true;
