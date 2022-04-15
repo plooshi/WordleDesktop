@@ -12,5 +12,4 @@ extern char *guessa[];
 extern char *guess;
 extern char *todaysWordle;
 extern int guesses;
-extern int ccharg;
 #endif
