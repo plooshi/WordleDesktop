@@ -9,16 +9,17 @@ gboolean on_key_press (GtkWidget *widget, GdkEventKey *event, gpointer user_data
     if (keyval == GDK_KEY_Return) {
         //if (guesses >= 6) return false;
         if (strlen(guess) < 5) return false;
-        if (!guessValid(guess)) return false;
+        //if (!guessValid(guess)) return false;
         //guesses++;
         //colorizeScore(score(guess));
         
+        
+        refreshLabels();
+        colorLabels();
         guess = "     ";
         updateGuessArray();
         guess = "";
         createRow();
-        refreshLabels();
-        colorLabels();
 
         return true;
     }

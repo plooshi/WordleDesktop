@@ -10,31 +10,69 @@ GtkWidget *letter4;
 GtkWidget *letter5;
 GtkWidget *window;
 
-void colorizeOut(int val, GtkWidget *label) {
+bool shouldShade(int pos, char ltr) {
+    int wRptCount = -1, wFirstOcc = -1, wRpt1 = -1, wRpt2 = -1;
+    int gRptCount = -1, gFirstOcc = -1, gRpt1 = -1, gRpt2 = -1;
+    for (int x = 0; x < 5; x++) {
+        if (todaysWordle[x] == ltr) {
+            wRptCount++;
+            if (wRptCount == 0) {
+                wFirstOcc = x;
+            } else if (wRptCount == 1) {
+                wRpt1 = x;
+            } else {
+                wRpt2 = x;
+            }
+        }
+    }
+    for (int i = 0; i < 5; i++) {
+        if (guess[i] == ltr) {
+            gRptCount++;
+            if (gRptCount == 0) {
+                gFirstOcc = i;
+            } else if (gRptCount == 1) {
+                gRpt1 = i;
+            } else {
+                gRpt2 = i;
+            }
+        }
+    }
+    if (gRptCount > wRptCount) {
+        if (gRptCount == 1 && pos != gFirstOcc && wRpt1 < pos && wRpt1 == -1 && wRptCount == 0) {
+            return false;
+        }
+        if (gRptCount == 2 && pos != gFirstOcc && wRpt2 < pos && wRpt2 == -1 && wRptCount == 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+void colorizeOut(int val, int pos, GtkWidget *label) {
+    bool shade = shouldShade(pos, guess[pos]);
     char *format;
     gchar *markup;
     const gchar *text = gtk_label_get_text(GTK_LABEL(label));
-    if (val == 2) {
-        format="<span background=\"#76ff03\" foreground=\"#000000\">%s </span>";
-        markup=g_markup_printf_escaped(format,text);
+    if (shade && val != 0) {
+        if (val == 2) {
+            format = "<span background=\"#76ff03\" foreground=\"#000000\">%s </span>";
+        }
+        else if (val == 1) {
+            format = "<span background=\"#ffff00\" foreground=\"#000000\">%s </span>";
+        }
+    } else {
+        format = "<span background=\"#616161\" foreground=\"#000000\">%s </span>"; 
     }
-    else if (val == 1) {
-        format="<span background=\"#ffff00\" foreground=\"#000000\">%s </span>";
-        markup=g_markup_printf_escaped(format,text);
-    }
-    else {
-        format="<span background=\"#616161\" foreground=\"#000000\">%s </span>";
-        markup=g_markup_printf_escaped(format,text);
-    }
+    markup = g_markup_printf_escaped(format, text);
     gtk_label_set_markup(GTK_LABEL(label), markup);
 }
 
 void colorLabels() {
-    colorizeOut(scoreLetter(guessa[0], 0), letter1);
-    colorizeOut(scoreLetter(guessa[1], 1), letter2);
-    colorizeOut(scoreLetter(guessa[2], 2), letter3);
-    colorizeOut(scoreLetter(guessa[3], 3), letter4);
-    colorizeOut(scoreLetter(guessa[4], 4), letter5);
+    colorizeOut(scoreLetter(guessa[0], 0), 0, letter1);
+    colorizeOut(scoreLetter(guessa[1], 1), 1, letter2);
+    colorizeOut(scoreLetter(guessa[2], 2), 2, letter3);
+    colorizeOut(scoreLetter(guessa[3], 3), 3, letter4);
+    colorizeOut(scoreLetter(guessa[4], 4), 4, letter5);
 }
 
 void formatLabel(GtkLabel *label) {
@@ -46,6 +84,7 @@ void formatLabel(GtkLabel *label) {
 
     pango_attr_list_insert(attrlist, attr);
     gtk_label_set_attributes(label, attrlist);
+    gtk_widget_set_hexpand (GTK_WIDGET(label), TRUE);
 }
 
 GtkWidget *guessRow(GtkListBox *list_box) {
