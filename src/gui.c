@@ -37,6 +37,17 @@ void colorLabels() {
     colorizeOut(scoreLetter(guessa[4], 4), letter5);
 }
 
+void formatLabel(GtkLabel *label) {
+    PangoAttrList *attrlist = pango_attr_list_new();
+
+    PangoFontDescription * font_desc = pango_font_description_new();
+    pango_font_description_set_size(font_desc, 20 * PANGO_SCALE);
+    PangoAttribute * attr = pango_attr_font_desc_new(font_desc);
+
+    pango_attr_list_insert(attrlist, attr);
+    gtk_label_set_attributes(label, attrlist);
+}
+
 GtkWidget *guessRow(GtkListBox *list_box) {
     GtkWidget
     *row = gtk_list_box_row_new(),
@@ -55,6 +66,11 @@ GtkWidget *guessRow(GtkListBox *list_box) {
     colorizeOut(scoreLetter(guessa[2], 2), letter3);
     colorizeOut(scoreLetter(guessa[3], 3), letter4);
     colorizeOut(scoreLetter(guessa[4], 4), letter5);*/
+    formatLabel(GTK_LABEL(letter1));
+    formatLabel(GTK_LABEL(letter2));
+    formatLabel(GTK_LABEL(letter3));
+    formatLabel(GTK_LABEL(letter4));
+    formatLabel(GTK_LABEL(letter5));
 
     gtk_container_add(GTK_CONTAINER(row), hbox);
     gtk_box_pack_start(GTK_BOX(hbox), letter1, FALSE, FALSE, 0);
