@@ -9,6 +9,7 @@ GtkWidget *letter3;
 GtkWidget *letter4;
 GtkWidget *letter5;
 GtkWidget *window;
+GtkListBox *list_box;
 
 bool shouldShade(int pos, char ltr) {
     int wRptCount = -1, wFirstOcc = -1, wRpt1 = -1, wRpt2 = -1;
@@ -87,18 +88,18 @@ void formatLabel(GtkLabel *label) {
     gtk_widget_set_hexpand (GTK_WIDGET(label), TRUE);
 }
 
-GtkWidget *guessRow(GtkListBox *list_box) {
+GtkWidget *guessRow() {
     GtkWidget
     *row = gtk_list_box_row_new(),
     *hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
 
     updateGuessArray();
 
-    letter1 = gtk_label_new(guessa[0]);
-    letter2 = gtk_label_new(guessa[1]);
-    letter3 = gtk_label_new(guessa[2]);
-    letter4 = gtk_label_new(guessa[3]);
-    letter5 = gtk_label_new(guessa[4]);
+    letter1 = gtk_label_new("");
+    letter2 = gtk_label_new("");
+    letter3 = gtk_label_new("");
+    letter4 = gtk_label_new("");
+    letter5 = gtk_label_new("");
     
     /*colorizeOut(scoreLetter(guessa[0], 0), letter1);
     colorizeOut(scoreLetter(guessa[1], 1), letter2);
@@ -131,11 +132,14 @@ void refreshLabels() {
 }
 
 void createRow() {
-    GtkWidget *list_box = gtk_list_box_new();
-    GtkWidget *row = guessRow(GTK_LIST_BOX(list_box));
-    gtk_container_add(GTK_CONTAINER(window), list_box);
+    letter1 = NULL;
+    letter2 = NULL;
+    letter3 = NULL;
+    letter4 = NULL;
+    letter5 = NULL;
+    GtkWidget *row = guessRow();
+    gtk_container_add(GTK_CONTAINER(window), GTK_WIDGET(list_box));
     gtk_widget_show_all(row);
-    gtk_widget_show_all(list_box);
 }
 
 
@@ -147,7 +151,9 @@ static void render(GtkApplication* app, gpointer user_data)
     gtk_window_set_default_size(GTK_WINDOW(window), 500, 700);
     gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
     g_signal_connect(window, "key-press-event", G_CALLBACK(on_key_press), NULL);
+    list_box = GTK_LIST_BOX(gtk_list_box_new());
     createRow();
+    gtk_widget_show_all(GTK_WIDGET(list_box));
     gtk_widget_show_all(window);
 }
 

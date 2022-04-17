@@ -2,14 +2,20 @@
 #include <string.h>
 #include <stdlib.h>
 #include <malloc.h>
+#include <assert.h>
 #include <time.h>
 
 char *guessa[] = {" ", " ", " ", " ", " "};
-int ccharg = 0;
+char *guessad[] = {" ", " ", " ", " ", " "};
 char *todaysWordle = "";
 char *guess = "";
+char *guessd = "";
 int guesses = 0;
 bool won = false;
+
+void resetGuess() {
+    memset(guess, 0, sizeof(guess));
+}
 
 void updateGuessArray() {
     char *v1 = malloc(2*sizeof(char));
@@ -17,7 +23,7 @@ void updateGuessArray() {
     char *v3 = malloc(2*sizeof(char));
     char *v4 = malloc(2*sizeof(char));
     char *v5 = malloc(2*sizeof(char));
-    if (strlen(guess) >= 1) {
+    if (strlen(guess) >= 0) {
         v1[0] = guess[0];
         v1[1] = '\0';
     } else {
@@ -71,7 +77,7 @@ void updateWordle() {
 }
 
 int scoreLetter(char *letter, int pos) {
-    if ((char)letter[0] == (char)todaysWordle[pos]) return 2;
+    if ((char)guessa[pos][0] == (char)todaysWordle[pos]) return 2;
     if (strchr(todaysWordle, (int)(letter[0])) != NULL) return 1;
     return 0;
 }
@@ -92,11 +98,17 @@ bool guessValid(char *guess) {
   return valid;
 }
 
-void checkWin(char *guess) {
-    if (strcmp(guess, todaysWordle) == 0) {
-        won = true;
-    }
+void checkWin() {
+    //updateGuessArray();
+    if (
+        scoreLetter(guessa[0], 0) == 2 && 
+        scoreLetter(guessa[1], 1) == 2 && 
+        scoreLetter(guessa[2], 2) == 2 && 
+        scoreLetter(guessa[3], 3) == 2 && 
+        scoreLetter(guessa[4], 4) == 2
+    ) won = true;
 }
+
 char *wordles[] = {
     "cigar", "rebut", "sissy", "humph", "awake", "blush", "focal", "evade",
     "naval", "serve", "heath", "dwarf", "model", "karma", "stink", "grade",

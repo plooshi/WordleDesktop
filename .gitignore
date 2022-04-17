@@ -1,9 +1,6 @@
-.ccls-cache
 *.o
 Makefile
 wordle
-replit.nix
-__build_internal
 CMakeFiles
 cmake_install.cmake
 CMakeCache.txt
