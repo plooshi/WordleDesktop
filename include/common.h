@@ -4,7 +4,7 @@
 #define COMMON_INCL 1
 extern char* wordles[];
 extern char* validGuesses[];
-bool guessValid(char *guess);
+bool guessValid();
 bool isOutOfGuesses();
 int scoreLetter(char *letter, int pos);
 void updateWordle();

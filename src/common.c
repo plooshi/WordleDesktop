@@ -107,16 +107,16 @@ bool shouldRepeat(int pos, char ltr) {
             }
         }
     }
-    if (gRptCount == 0 && wRpt1 == -1 && wRptCount < 1) {
+    if (gRptCount == 1 && wRpt1 == -1 && wRptCount < 1) {
         return false;
     }
-    if (gRptCount == 1 && wRpt2 == -1 && wRptCount < 2) {
+    if (gRptCount == 2 && wRpt2 == -1 && wRptCount < 2) {
         return false;
     }
-    if (gRptCount == 2 && wRpt3 == -1 && wRptCount < 3) {
+    if (gRptCount == 3 && wRpt3 == -1 && wRptCount < 3) {
         return false;
     }
-    if (gRptCount >= 3) {
+    if (gRptCount >= 4) {
         return false;
     }
     return true;
@@ -129,20 +129,15 @@ int scoreLetter(char *letter, int pos) {
     return 0;
 }
 
-bool string_in(char *my_str, char **string_list)
-{
-    for ( int i = 0; i < (sizeof(string_list) / sizeof(string_list[0])); ++i )
-        if (!strcmp(my_str, string_list[i]))
-            return true;
-
-    return false;
-}
-
-bool guessValid(char *guess) {
-  bool valid = false;
-  if (string_in(guess, wordles)) valid = true;
-  if (string_in(guess, validGuesses)) valid = true;
-  return valid;
+bool guessValid() {
+    bool valid = false;
+    for ( int i = 0; i < 2309; i++ ) {
+        if (strcmp(wordles[i], guess) == 0) valid = true;
+    }
+    for ( int i = 0; i < 10665; i++ ) {
+        if (strcmp(validGuesses[i], guess) == 0) valid = true;
+    }
+    return valid;
 }
 
 bool checkWin() {
