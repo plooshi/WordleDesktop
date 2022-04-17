@@ -5,14 +5,14 @@
 extern char* wordles[];
 extern char* validGuesses[];
 bool guessValid(char *guess);
+bool isOutOfGuesses();
 int scoreLetter(char *letter, int pos);
 void updateWordle();
 void updateGuessArray();
-void checkWin();
+void upGuessCount();
+bool checkWin();
 extern char *guessa[];
 extern char *guess;
 extern char *todaysWordle;
-extern int guesses;
-extern bool won;
 void resetGuess();
 #endif

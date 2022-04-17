@@ -2,31 +2,55 @@
 #include "common.h"
 
 
+bool dontAcceptKeys = false;
+int guesses = 0;
+
+
+void upGuessCount() {
+    guesses = guesses + 1;
+}
+
+bool isOutOfGuesses() {
+    if (guesses >= 6) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 gboolean on_key_press (GtkWidget *widget, GdkEventKey *event, gpointer user_data)
 {
     gchar* key = event->string;
     guint keyval = event->keyval;
-    if (won == true) return true;
+    if (dontAcceptKeys == true) {
+        guess = "";
+        return true;
+    };
     if (keyval == GDK_KEY_Return) {
-        char *cwGuess = guess;
-        //if (guesses >= 6) return false;
         if (strlen(guess) < 5) return false;
         //if (!guessValid(guess)) return false;
-        guesses++;
+        upGuessCount();
         
         
         colorLabels();
-        checkWin();
+        dontAcceptKeys = checkWin();
         //refreshLabels();
         resetGuess();
         updateGuessArray();
         createRow();
         refreshLabels();
 
+        
+        if (isOutOfGuesses() && dontAcceptKeys == false) dontAcceptKeys = true;
+
         return true;
     }
     if (keyval == GDK_KEY_BackSpace) {
+        #ifdef _MSC_VER
         char* ng = guess;
+        #else
+        char ng[] = guess;
+        #endif
         ng[strlen(guess)-1] = '\0';
         ng = "";
         updateGuessArray();
@@ -34,7 +58,6 @@ gboolean on_key_press (GtkWidget *widget, GdkEventKey *event, gpointer user_data
         return true;
     }
     if (strlen(guess) >= 5) return false;
-    //if (guesses >= 6) return false;
     #ifdef _MSC_VER
         strcat_s(guess, 6, (char*)key);
     #else

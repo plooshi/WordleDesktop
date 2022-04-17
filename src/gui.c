@@ -11,57 +11,17 @@ GtkWidget *letter5;
 GtkWidget *window;
 GtkListBox *list_box;
 
-bool shouldShade(int pos, char ltr) {
-    int wRptCount = -1, wFirstOcc = -1, wRpt1 = -1, wRpt2 = -1;
-    int gRptCount = -1, gFirstOcc = -1, gRpt1 = -1, gRpt2 = -1;
-    for (int x = 0; x < 5; x++) {
-        if (todaysWordle[x] == ltr) {
-            wRptCount++;
-            if (wRptCount == 0) {
-                wFirstOcc = x;
-            } else if (wRptCount == 1) {
-                wRpt1 = x;
-            } else {
-                wRpt2 = x;
-            }
-        }
-    }
-    for (int i = 0; i < 5; i++) {
-        if (guess[i] == ltr) {
-            gRptCount++;
-            if (gRptCount == 0) {
-                gFirstOcc = i;
-            } else if (gRptCount == 1) {
-                gRpt1 = i;
-            } else {
-                gRpt2 = i;
-            }
-        }
-    }
-    if (gRptCount > wRptCount) {
-        if (gRptCount == 1 && pos != gFirstOcc && wRpt1 < pos && wRpt1 == -1 && wRptCount == 0) {
-            return false;
-        }
-        if (gRptCount == 2 && pos != gFirstOcc && wRpt2 < pos && wRpt2 == -1 && wRptCount == 0) {
-            return false;
-        }
-    }
-    return true;
-}
-
 void colorizeOut(int val, int pos, GtkWidget *label) {
-    bool shade = shouldShade(pos, guess[pos]);
     char *format;
     gchar *markup;
     const gchar *text = gtk_label_get_text(GTK_LABEL(label));
-    if (shade && val != 0) {
-        if (val == 2) {
-            format = "<span background=\"#76ff03\" foreground=\"#000000\">%s </span>";
-        }
-        else if (val == 1) {
-            format = "<span background=\"#ffff00\" foreground=\"#000000\">%s </span>";
-        }
-    } else {
+    if (val == 2) {
+        format = "<span background=\"#76ff03\" foreground=\"#000000\">%s </span>";
+    }
+    else if (val == 1) {
+        format = "<span background=\"#ffff00\" foreground=\"#000000\">%s </span>";
+    }
+    else {
         format = "<span background=\"#616161\" foreground=\"#000000\">%s </span>"; 
     }
     markup = g_markup_printf_escaped(format, text);
@@ -145,9 +105,9 @@ void createRow() {
 
 static void render(GtkApplication* app, gpointer user_data)
 {
-    
     window = gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), "Wordle");
+    gtk_window_set_resizable(GTK_WINDOW(window), false);
     gtk_window_set_default_size(GTK_WINDOW(window), 500, 700);
     gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
     g_signal_connect(window, "key-press-event", G_CALLBACK(on_key_press), NULL);
