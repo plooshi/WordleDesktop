@@ -1,10 +1,6 @@
 project(Wordle)
 cmake_minimum_required(VERSION 3.8)
 
-if (!CMAKE_BUILD_TYPE)
-set(CMAKE_BUILD_TYPE "Release")
-endif()
-
 if (MSVC)
 if (!GTK_DIR)
 message("GTK_DIR not set, dont question if there are errors. To set it please add -DGTK_DIR:PATH=<path to GTK and dependencies directory>")
@@ -41,7 +37,22 @@ endif()
 
 include_directories(include)
 
-add_executable(wordle ${GUI_TYPE} src/app.c src/common.c src/gui.c src/event.c)
+add_executable(wordle ${GUI_TYPE} 
+    src/app.c 
+    src/guess.c 
+    src/input.c 
+    src/score.c 
+    src/wordles.c 
+    src/words.c 
+    src/ui/banner.c 
+    src/ui/box.c 
+    src/ui/color.c 
+    src/ui/format.c 
+    src/ui/labels.c 
+    src/ui/main.c
+    src/ui/rows.c 
+    src/ui/window.c
+)
 if (UNIX OR APPLE)
 target_link_libraries(wordle ${GTK_LIBRARIES})
 install(FILES ${CMAKE_SOURCE_DIR}/wordle DESTINATION bin)
@@ -73,5 +84,5 @@ install(FILES ${GTK_DIR}/bin/fontconfig-1.dll DESTINATION Wordle)
 install(FILES ${GTK_DIR}/bin/freetype-6.dll DESTINATION Wordle)
 install(FILES ${GTK_DIR}/bin/libpng16.dll DESTINATION Wordle)
 install(FILES ${GTK_DIR}/bin/expat.dll DESTINATION Wordle)
-install(FILES ${CMAKE_SOURCE_DIR}/Release/wordle.exe DESTINATION Wordle)
+install(FILES ${CMAKE_SOURCE_DIR}/$<CONFIG>/wordle.exe DESTINATION Wordle)
 endif()

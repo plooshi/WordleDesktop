@@ -1,5 +1,10 @@
-#include "event.h"
-#include "common.h"
+#include "input.h"
+#include "guess.h"
+#include "ui/color.h"
+#include "ui/labels.h"
+#include "ui/rows.h"
+#include "ui/box.h"
+#include "score.h"
 
 
 bool dontAcceptKeys = false;
@@ -18,19 +23,7 @@ bool isOutOfGuesses() {
     }
 }
 
-bool checkWin() {
-    //updateGuessArray();
-    if (
-        scoreLetter(guessa[0], 0) == 2 && 
-        scoreLetter(guessa[1], 1) == 2 && 
-        scoreLetter(guessa[2], 2) == 2 && 
-        scoreLetter(guessa[3], 3) == 2 && 
-        scoreLetter(guessa[4], 4) == 2
-    ) return true;
-    return false;
-}
-
-gboolean on_key_press (GtkWidget *widget, GdkEventKey *event, gpointer user_data)
+gboolean handleKeys(GtkWidget *widget, GdkEventKey *event, gpointer user_data)
 {
     gchar* key = event->string;
     guint keyval = event->keyval;
@@ -46,10 +39,9 @@ gboolean on_key_press (GtkWidget *widget, GdkEventKey *event, gpointer user_data
         
         colorLabels();
         if (checkWin() || isOutOfGuesses()) return dontAcceptKeys = true;
-        //refreshLabels();
         resetGuess();
         updateGuessArray();
-        createRow();
+        guessRow();
         refreshLabels();
 
         return true;
@@ -74,6 +66,5 @@ gboolean on_key_press (GtkWidget *widget, GdkEventKey *event, gpointer user_data
     #endif
     updateGuessArray();
     refreshLabels();
-    //colorLabels();
     return true;
 }
