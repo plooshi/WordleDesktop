@@ -35,6 +35,12 @@ include_directories(${GTK_INCLUDE_DIRS} ${Glib_INCLUDE_DIRS})
 link_directories(${GTK_LIBRARY_DIRS} ${Glib_LIBRARY_DIRS})
 endif()
 
+foreach( OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES} )
+    string( TOUPPER ${OUTPUTCONFIG} OUTPUTCONFIG )
+    set( CMAKE_RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_SOURCE_DIR}/bin )
+endforeach( OUTPUTCONFIG CMAKE_CONFIGURATION_TYPES )
+set( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin )
+
 include_directories(include)
 
 add_executable(wordle ${GUI_TYPE} 
@@ -84,5 +90,5 @@ install(FILES ${GTK_DIR}/bin/fontconfig-1.dll DESTINATION Wordle)
 install(FILES ${GTK_DIR}/bin/freetype-6.dll DESTINATION Wordle)
 install(FILES ${GTK_DIR}/bin/libpng16.dll DESTINATION Wordle)
 install(FILES ${GTK_DIR}/bin/expat.dll DESTINATION Wordle)
-install(FILES ${CMAKE_SOURCE_DIR}/$<CONFIG>/wordle.exe DESTINATION Wordle)
+install(FILES ${CMAKE_SOURCE_DIR}/bin/wordle.exe DESTINATION Wordle)
 endif()
