@@ -12,7 +12,11 @@ char guess[] = "";
 char *guessa[] = {" ", " ", " ", " ", " "};
 
 void resetGuess() {
+    #ifdef _MSC_VER
     memset(guess, 0, sizeof(guess));
+    #else
+    guess[0] = '\0';
+    #endif
 }
 
 void updateGuessArray() {
