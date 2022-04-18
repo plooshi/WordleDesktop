@@ -12,7 +12,12 @@ CMakeCache.txt
 *.vcxproj.filters
 *.sln
 x64
+arm64
+arm
+x86
 bin
+Debug
+Release
 wordle.dir
 testing
 Makefile

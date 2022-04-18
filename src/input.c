@@ -49,11 +49,14 @@ gboolean handleKeys(GtkWidget *widget, GdkEventKey *event, gpointer user_data)
     if (keyval == GDK_KEY_BackSpace) {
         #ifdef _MSC_VER
         char* ng = guess;
+        ng
         #else
-        char ng[] = guess;
+        guess
         #endif
-        ng[strlen(guess)-1] = '\0';
+        [strlen(guess)-1] = '\0';
+        #ifdef _MSC_VER
         ng = "";
+        #endif
         updateGuessArray();
         refreshLabels();
         return true;
