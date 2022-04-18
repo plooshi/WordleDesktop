@@ -16,13 +16,13 @@ void colorizeOut(int val, int pos, GtkWidget *label) {
     gchar *markup;
     const gchar *text = gtk_label_get_text(GTK_LABEL(label));
     if (val == 2) {
-        format = "<span background=\"#76ff03\" foreground=\"#000000\">%s </span>";
+        format = "<span background=\"#76ff03\" foreground=\"#000000\"> %s </span>";
     }
     else if (val == 1) {
-        format = "<span background=\"#ffff00\" foreground=\"#000000\">%s </span>";
+        format = "<span background=\"#ffff00\" foreground=\"#000000\"> %s </span>";
     }
     else {
-        format = "<span background=\"#616161\" foreground=\"#000000\">%s </span>"; 
+        format = "<span background=\"#616161\" foreground=\"#000000\"> %s </span>"; 
     }
     markup = g_markup_printf_escaped(format, text);
     gtk_label_set_markup(GTK_LABEL(label), markup);
@@ -102,6 +102,34 @@ void createRow() {
     gtk_widget_show_all(row);
 }
 
+void formatWordleText(GtkLabel *label) {
+    PangoAttrList *attrlist = pango_attr_list_new();
+
+    PangoFontDescription * font_desc = pango_font_description_new();
+    pango_font_description_set_size(font_desc, 30 * PANGO_SCALE);
+    PangoAttribute * attr = pango_attr_font_desc_new(font_desc);
+
+    pango_attr_list_insert(attrlist, attr);
+    gtk_label_set_attributes(label, attrlist);
+    gtk_widget_set_hexpand (GTK_WIDGET(label), TRUE);
+}
+
+GtkWidget *wordleBanner() {
+    GtkWidget
+    *tRow = gtk_list_box_row_new(),
+    *tBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5),
+    *tListBox = gtk_list_box_new(),
+    *wordleText = gtk_label_new("Wordle");
+    gtk_list_box_set_selection_mode(GTK_LIST_BOX(tListBox), false);
+    formatWordleText(GTK_LABEL(wordleText));
+    gtk_container_add(GTK_CONTAINER(tRow), tBox);
+    gtk_box_pack_start(GTK_BOX(tBox), wordleText, FALSE, FALSE, 0);
+    gtk_container_add(GTK_CONTAINER(tListBox), tRow);
+    gtk_container_add(GTK_CONTAINER(window), GTK_WIDGET(tListBox));
+    gtk_widget_show_all(GTK_WIDGET(tRow));
+    gtk_widget_show_all(GTK_WIDGET(tListBox));
+    return tListBox;
+}
 
 static void render(GtkApplication* app, gpointer user_data)
 {
@@ -111,7 +139,7 @@ static void render(GtkApplication* app, gpointer user_data)
     gtk_window_set_default_size(GTK_WINDOW(window), 500, 700);
     gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
     g_signal_connect(window, "key-press-event", G_CALLBACK(on_key_press), NULL);
-    list_box = GTK_LIST_BOX(gtk_list_box_new());
+    list_box = GTK_LIST_BOX(wordleBanner());
     createRow();
     gtk_widget_show_all(GTK_WIDGET(list_box));
     gtk_widget_show_all(window);

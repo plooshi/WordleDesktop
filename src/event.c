@@ -18,6 +18,18 @@ bool isOutOfGuesses() {
     }
 }
 
+bool checkWin() {
+    //updateGuessArray();
+    if (
+        scoreLetter(guessa[0], 0) == 2 && 
+        scoreLetter(guessa[1], 1) == 2 && 
+        scoreLetter(guessa[2], 2) == 2 && 
+        scoreLetter(guessa[3], 3) == 2 && 
+        scoreLetter(guessa[4], 4) == 2
+    ) return true;
+    return false;
+}
+
 gboolean on_key_press (GtkWidget *widget, GdkEventKey *event, gpointer user_data)
 {
     gchar* key = event->string;
@@ -33,15 +45,12 @@ gboolean on_key_press (GtkWidget *widget, GdkEventKey *event, gpointer user_data
         
         
         colorLabels();
-        dontAcceptKeys = checkWin();
+        if (checkWin() || isOutOfGuesses()) return dontAcceptKeys = true;
         //refreshLabels();
         resetGuess();
         updateGuessArray();
         createRow();
         refreshLabels();
-
-        
-        if (isOutOfGuesses() && dontAcceptKeys == false) dontAcceptKeys = true;
 
         return true;
     }

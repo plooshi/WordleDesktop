@@ -140,17 +140,6 @@ bool guessValid() {
     return valid;
 }
 
-bool checkWin() {
-    //updateGuessArray();
-    if (
-        scoreLetter(guessa[0], 0) == 2 && 
-        scoreLetter(guessa[1], 1) == 2 && 
-        scoreLetter(guessa[2], 2) == 2 && 
-        scoreLetter(guessa[3], 3) == 2 && 
-        scoreLetter(guessa[4], 4) == 2
-    ) return true;
-    return false;
-}
 
 char *wordles[] = {
     "cigar", "rebut", "sissy", "humph", "awake", "blush", "focal", "evade",
