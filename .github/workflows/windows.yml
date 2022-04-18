@@ -19,11 +19,17 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    
+    - name: get gtk
+      uses: schmiddim/action-wget-unzip@v2
+      with:
+        url: https://github.com/plooshi/gvsbuild/suites/6139791441/artifacts/214180394
+        destination: ${{github.workspace}}/gtk
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+      run: cmake -B ${{github.workspace}}/build -DGTK_DIR=${{github.workspace}}/gtk -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
     - name: Build
       # Build your program with the given configuration
@@ -35,4 +41,4 @@ jobs:
       uses: actions/upload-artifact@v3.0.0
       with:
         path: ${{github.workspace}}/build
-      
+    
