@@ -28,7 +28,7 @@ gboolean handleKeys(GtkWidget *widget, GdkEventKey *event, gpointer user_data)
     gchar* key = event->string;
     guint keyval = event->keyval;
     if (dontAcceptKeys == true) {
-        guess = "";
+        resetGuess();
         return true;
     };
     if (keyval == GDK_KEY_Return) {
