@@ -65,7 +65,7 @@ gboolean handleKeys(GtkWidget *widget, GdkEventKey *event, gpointer user_data)
     #ifdef _MSC_VER
         strcat_s(guess, 6, (char*)key);
     #else
-        strcat(guess, (char*)key);
+        strncat(guess, (char*)key, sizeof(guess) - strlen(guess) - 1);
     #endif
     updateGuessArray();
     refreshLabels();
