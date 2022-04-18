@@ -1,6 +1,8 @@
 project(Wordle)
 cmake_minimum_required(VERSION 3.8)
 
+set(CMAKE_BUILD_TYPE "Release" CACHE)
+
 if (MSVC)
 if (!GTK_DIR)
 message("GTK_DIR not set, dont question if there are errors. To set it please add -DGTK_DIR:PATH=<path to GTK and dependencies directory>")
@@ -69,5 +71,5 @@ install(FILES ${GTK_DIR}/bin/fontconfig-1.dll DESTINATION Wordle)
 install(FILES ${GTK_DIR}/bin/freetype-6.dll DESTINATION Wordle)
 install(FILES ${GTK_DIR}/bin/libpng16.dll DESTINATION Wordle)
 install(FILES ${GTK_DIR}/bin/expat.dll DESTINATION Wordle)
-install(FILES ${CMAKE_SOURCE_DIR}/Debug/wordle.exe DESTINATION Wordle)
+install(FILES ${CMAKE_SOURCE_DIR}/Release/wordle.exe DESTINATION Wordle)
 endif()
