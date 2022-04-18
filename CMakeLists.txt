@@ -1,7 +1,9 @@
 project(Wordle)
 cmake_minimum_required(VERSION 3.8)
 
-set(CMAKE_BUILD_TYPE "Release" CACHE)
+if (!CMAKE_BUILD_TYPE)
+set(CMAKE_BUILD_TYPE "Release")
+endif()
 
 if (MSVC)
 if (!GTK_DIR)
