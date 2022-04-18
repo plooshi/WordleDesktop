@@ -21,7 +21,7 @@ jobs:
     - uses: actions/checkout@v3
     
     - name: get gtk
-      run: C:\msys64\usr\bin\wget.exe "https://pipelines.actions.githubusercontent.com/serviceHosts/f33e7cf4-5974-42aa-9327-28d0cc2c1997/_apis/pipelines/1/runs/4/signedartifactscontent?artifactName=gtk&urlExpires=2022-04-18T01%3A57%3A11.3995622Z&urlSigningMethod=HMACV2&urlSignature=dj%2BaIhjvuak6c%2FnPRW7zI0tNNHU3tmCfjheMAvDNz04%3D" -O ${{github.workspace}}/gtk.zip
+      run: C:\msys64\usr\bin\wget.exe "https://github.com/plooshi/gvsbuild/suites/6139791441/artifacts/214180394" -O ${{github.workspace}}/gtk.zip
 
     - name: extract gtk
       run: cd ${{github.workspace}} && 7z x gtk.zip
