@@ -11,6 +11,6 @@ extern char *guessa[];
 #ifdef _MSC_VER
 extern char *guess;
 #else
-extern char guess[0];
+extern char guess[6];
 #endif
 #endif
