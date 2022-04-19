@@ -61,7 +61,7 @@ add_executable(wordle ${GUI_TYPE}
 )
 if (UNIX OR APPLE)
 target_link_libraries(wordle ${GTK_LIBRARIES})
-install(FILES ${CMAKE_SOURCE_DIR}/wordle DESTINATION bin)
+install(FILES ${CMAKE_SOURCE_DIR}/bin/wordle DESTINATION bin)
 endif()
 if (MSVC)
 target_sources(wordle PRIVATE res/wordle.rc)
