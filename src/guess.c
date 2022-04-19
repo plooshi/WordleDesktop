@@ -11,9 +11,9 @@
 #ifdef _MSC_VER
 char *guess = "";
 #else
-char guess[] = "";
+char guess[6] = "";
 #endif
-char *guessa[] = {" ", " ", " ", " ", " "};
+char *guessa[5] = {" ", " ", " ", " ", " "};
 
 void resetGuess() {
     #ifdef _MSC_VER
