@@ -28,7 +28,9 @@ gboolean handleKeys(GtkWidget *widget, GdkEventKey *event, gpointer user_data)
     gchar* key = event->string;
     guint keyval = event->keyval;
     if (dontAcceptKeys == true) {
+        #ifndef _MSC_VER
         resetGuess();
+        #endif
         return true;
     };
     if (keyval == GDK_KEY_Return) {
@@ -62,6 +64,7 @@ gboolean handleKeys(GtkWidget *widget, GdkEventKey *event, gpointer user_data)
         return true;
     }
     if (strlen(guess) >= 5) return false;
+    if (!((char)key[0] >= 'a' && (char)key[0] <= 'z') || ((char)key[0] >= 'A' && (char)key[0] <= 'Z')) return false;
     #ifdef _MSC_VER
         strcat_s(guess, 6, (char*)key);
     #else

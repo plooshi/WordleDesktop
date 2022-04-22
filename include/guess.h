@@ -7,6 +7,7 @@ bool isOutOfGuesses();
 void updateGuessArray();
 void upGuessCount();
 void resetGuess();
+void lowerGuess();
 extern char *guessa[];
 #ifdef _MSC_VER
 extern char *guess;

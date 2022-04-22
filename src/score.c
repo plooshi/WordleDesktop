@@ -18,6 +18,7 @@ bool checkWin() {
 bool shouldRepeat(int pos, char ltr) {
     int wRptCount = -1, wFirstOcc = -1, wRpt1 = -1, wRpt2 = -1, wRpt3 = -1, wRpt4 = -1, wRpt5 = -1;
     int gRptCount = -1, gFirstOcc = -1, gRpt1 = -1, gRpt2 = -1, gRpt3 = -1, gRpt4 = -1, gRpt5 = -1;
+    lowerGuess();
     for (int x = 0; x < 5; x++) {
         if (todaysWordle[x] == ltr) {
             wRptCount++;

@@ -8,12 +8,19 @@
 #include <stdlib.h>
 #endif
 #include <string.h>
+#include <ctype.h>
 #ifdef _MSC_VER
 char *guess = "";
 #else
 char guess[6] = "";
 #endif
 char *guessa[5] = {" ", " ", " ", " ", " "};
+
+void lowerGuess() {
+    for(int i = 0; guess[i]; i++){
+        guess[i] = tolower(guess[i]);
+    }
+}
 
 void resetGuess() {
     #ifdef _MSC_VER
@@ -24,6 +31,7 @@ void resetGuess() {
 }
 
 void updateGuessArray() {
+    lowerGuess();
     char *v1 = malloc(2*sizeof(char));
     char *v2 = malloc(2*sizeof(char));
     char *v3 = malloc(2*sizeof(char));
@@ -67,6 +75,7 @@ void updateGuessArray() {
 }
 
 bool guessValid() {
+    lowerGuess();
     bool valid = false;
     for ( int i = 0; i < 2309; i++ ) {
         if (strcmp(wordles[i], guess) == 0) valid = true;
