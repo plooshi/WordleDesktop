@@ -7,4 +7,5 @@
 #ifndef UI_COLOR_INCL
 #define UI_COLOR_INCL 1
 void colorLabels();
+void colorOsk();
 #endif

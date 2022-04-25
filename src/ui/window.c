@@ -2,6 +2,7 @@
 #include "ui/box.h"
 #include "ui/banner.h"
 #include "ui/rows.h"
+#include "ui/keyboard.h"
 #include "input.h"
 #include <stdbool.h>
 
@@ -17,6 +18,9 @@ void mainWindow(GtkApplication* app, gpointer user_data)
     g_signal_connect(window, "key-press-event", G_CALLBACK(handleKeys), NULL);
     boxInit();
     wordleBanner();
+    formattingRow();
+    keyboardInit();
+    formattingRow();
     guessRow();
     gtk_widget_show_all(GTK_WIDGET(list_box));
     gtk_widget_show_all(window);

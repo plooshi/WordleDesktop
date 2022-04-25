@@ -54,6 +54,7 @@ add_executable(wordle ${GUI_TYPE}
     src/ui/box.c 
     src/ui/color.c 
     src/ui/format.c 
+    src/ui/keyboard.c
     src/ui/labels.c 
     src/ui/main.c
     src/ui/rows.c 

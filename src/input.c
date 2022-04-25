@@ -40,6 +40,7 @@ gboolean handleKeys(GtkWidget *widget, GdkEventKey *event, gpointer user_data)
         
         
         colorLabels();
+        colorOsk();
         if (checkWin() || isOutOfGuesses()) return dontAcceptKeys = true;
         resetGuess();
         updateGuessArray();
