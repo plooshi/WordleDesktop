@@ -5,9 +5,20 @@
 #include "ui/keyboard.h"
 #include "ui/box.h"
 
+int oskMap(int key) {
+    char *keyMap = "qwertyuiopasdfghjklzxcvbnm";
+    char output[] = "";
+    for(int i = 0; i < 26; i++) {
+        if ((char)keyMap[i] == (char)key + 97) {
+            return i;
+        }
+    }
+    return -1;
+}
+
 void colorizeOsk(int val, int i) {
-    GtkWidget *grid = gtk_grid_get_child_at(GTK_GRID(keyboardGrid), 0, 0);
-    GtkWidget *btn = gtk_grid_get_child_at(GTK_GRID(grid), getLeft(i), getTop(i));
+    int fixedI = oskMap(i);
+    GtkWidget *btn = gtk_grid_get_child_at(GTK_GRID(keyboardGrid), getLeft(fixedI), getTop(fixedI));
     if (val == 2) {
         gtk_widget_set_name(btn, "btnCorrect");
     }
@@ -17,7 +28,7 @@ void colorizeOsk(int val, int i) {
     else {
         gtk_widget_set_name(btn, "btnNotIn");
     }
-    gtk_grid_attach(GTK_GRID(grid), btn, getLeft(i), getTop(i), 1, 1);
+    gtk_grid_attach(GTK_GRID(keyboardGrid), btn, getLeft(fixedI), getTop(fixedI), 1, 1);
 }
 
 void colorizeLabel(int val, int pos, GtkWidget *label) {

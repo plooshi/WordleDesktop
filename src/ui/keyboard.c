@@ -42,7 +42,7 @@ void keyboardInit()
 
     struct key *p1 = NULL;
 
-    GtkWidget *grid1 = gtk_grid_new();
+    keyboardGrid = gtk_grid_new();
     for (int i = 0; i < 26; i++)
     {
         p1 = &g_array_index(keyboard, struct key, i);
@@ -55,12 +55,12 @@ void keyboardInit()
         gtk_css_provider_load_from_data(provider, css, -1, NULL);
         GtkStyleContext *ctx = gtk_widget_get_style_context(p1->button);
         gtk_style_context_add_provider(ctx, GTK_STYLE_PROVIDER(provider), GTK_STYLE_PROVIDER_PRIORITY_USER);
-        gtk_grid_attach(GTK_GRID(grid1), p1->button, getLeft(i), getTop(i), 1, 1);
+        gtk_grid_attach(GTK_GRID(keyboardGrid), p1->button, getLeft(i), getTop(i), 1, 1);
     }
 
-    keyboardGrid = gtk_grid_new();
+    GtkWidget *keyboardGrid1 = gtk_grid_new();
     
-    gtk_grid_attach(GTK_GRID(keyboardGrid), grid1, 0, 0, 1, 1);
-    gtk_container_add(GTK_CONTAINER(list_box), keyboardGrid);
+    gtk_grid_attach(GTK_GRID(keyboardGrid1), keyboardGrid, 0, 0, 1, 1);
+    gtk_container_add(GTK_CONTAINER(list_box), keyboardGrid1);
     g_array_free(keyboard, TRUE);
 }
