@@ -7,7 +7,6 @@
 
 int oskMap(int key) {
     char *keyMap = "qwertyuiopasdfghjklzxcvbnm";
-    char output[] = "";
     for(int i = 0; i < 26; i++) {
         if ((char)keyMap[i] == (char)key + 97) {
             return i;

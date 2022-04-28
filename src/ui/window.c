@@ -18,9 +18,7 @@ void mainWindow(GtkApplication* app, gpointer user_data)
     g_signal_connect(window, "key-press-event", G_CALLBACK(handleKeys), NULL);
     boxInit();
     wordleBanner();
-    formattingRow();
     keyboardInit();
-    formattingRow();
     guessRow();
     gtk_widget_show_all(GTK_WIDGET(list_box));
     gtk_widget_show_all(window);

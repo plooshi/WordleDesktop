@@ -4,16 +4,6 @@
 #include "ui/format.h"
 #include "guess.h"
 
-void formattingRow() {
-    GtkWidget *row = gtk_list_box_row_new(),
-    *hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
-
-    gtk_container_add(GTK_CONTAINER(row), hbox);
-    gtk_container_add(GTK_CONTAINER(list_box), row);
-
-    gtk_widget_show_all(row);
-}
-
 void guessRow() {
     GtkWidget
     *row = gtk_list_box_row_new(),
