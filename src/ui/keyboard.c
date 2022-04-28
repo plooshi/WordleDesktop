@@ -47,16 +47,18 @@ void keyboardInit()
     {
         p1 = &g_array_index(keyboard, struct key, i);
         char *css = "\
-            .kbBtn { font-size: 20px; } \
-            #btnNotIn { background-color: #616161; background-image: none; } \
-            #btnWrongSpot { background-color: #ffff00; background-image: none; } \
-            #btnCorrect { background-color: #76ff03; background-image: none; } \
+            .kbBtn { font-size: 20px; background-image: none; } \
+            #btnDefault { background-color: #919191; } \
+            #btnNotIn { background-color: #616161; } \
+            #btnWrongSpot { background-color: #ffff00; } \
+            #btnCorrect { background-color: #76ff03; } \
             ";
         GtkCssProvider *provider = gtk_css_provider_new();
         gtk_css_provider_load_from_data(provider, css, -1, NULL);
         GtkStyleContext *ctx = gtk_widget_get_style_context(p1->button);
         gtk_style_context_add_provider(ctx, GTK_STYLE_PROVIDER(provider), GTK_STYLE_PROVIDER_PRIORITY_USER);
         gtk_style_context_add_class(ctx, "kbBtn");
+        gtk_widget_set_name(p1->button, "btnDefault");
         gtk_grid_attach(GTK_GRID(keyboardGrid), p1->button, getLeft(i), getTop(i), 1, 1);
     }
 
