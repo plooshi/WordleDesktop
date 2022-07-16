@@ -47,7 +47,7 @@ add_executable(Wordle ${GUI_TYPE}
     src/guess.c 
     src/input.c 
     src/score.c 
-    src/Wordles.c 
+    src/wordles.c 
     src/words.c 
     src/ui/banner.c 
     src/ui/box.c 
