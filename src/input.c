@@ -24,6 +24,13 @@ bool isOutOfGuesses() {
     }
 }
 
+void doRedLabels() {
+    if (!guessValid(guess) && rl == false) {
+        redLabels();
+        rl = true;
+    }
+}
+
 gboolean handleKeys(GtkWidget *widget, GdkEventKey *event, gpointer user_data)
 {
     gchar* key = event->string;
@@ -36,10 +43,7 @@ gboolean handleKeys(GtkWidget *widget, GdkEventKey *event, gpointer user_data)
         if (strlen(guess) < 5) {
             return false;
         } else if (strlen(guess) == 5 && !guessValid(guess)) {
-            if (rl == false) {
-                redLabels();
-                rl = true;
-            }
+            doRedLabels();
             return false;
         }
         upGuessCount();
@@ -64,10 +68,7 @@ gboolean handleKeys(GtkWidget *widget, GdkEventKey *event, gpointer user_data)
         return true;
     }
     if (strlen(guess) >= 5) {
-        if (!guessValid(guess) && rl == false) {
-            redLabels();
-            rl = true;
-        };
+        doRedLabels();
         return false;
     }
     if (!((char)key[0] >= 'a' && (char)key[0] <= 'z') || ((char)key[0] >= 'A' && (char)key[0] <= 'Z')) return false;
@@ -78,5 +79,8 @@ gboolean handleKeys(GtkWidget *widget, GdkEventKey *event, gpointer user_data)
     #endif
     updateGuessArray();
     refreshLabels();
+    if (strlen(guess) >= 5) {
+        doRedLabels();
+    }
     return true;
 }
