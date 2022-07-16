@@ -36,18 +36,18 @@ endif()
 
 foreach( OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES} )
     string( TOUPPER ${OUTPUTCONFIG} OUTPUTCONFIG )
-    set( CMAKE_RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_SOURCE_DIR}/bin )
+    set( CMAKE_RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_BINARY_DIR}/bin )
 endforeach( OUTPUTCONFIG CMAKE_CONFIGURATION_TYPES )
-set( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin )
+set( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin )
 
 include_directories(include)
 
-add_executable(wordle ${GUI_TYPE} 
+add_executable(Wordle ${GUI_TYPE} 
     src/app.c 
     src/guess.c 
     src/input.c 
     src/score.c 
-    src/wordles.c 
+    src/Wordles.c 
     src/words.c 
     src/ui/banner.c 
     src/ui/box.c 
@@ -60,12 +60,12 @@ add_executable(wordle ${GUI_TYPE}
     src/ui/window.c
 )
 if (UNIX OR APPLE)
-target_link_libraries(wordle ${GTK_LIBRARIES})
-install(TARGETS wordle DESTINATION bin)
+target_link_libraries(Wordle ${GTK_LIBRARIES})
+install(TARGETS Wordle DESTINATION bin)
 endif()
 if (MSVC)
-target_sources(wordle PRIVATE res/wordle.rc)
-target_link_libraries(wordle gtk-3 gobject-2.0 gio-2.0 glib-2.0 pango-1.0)
+target_sources(Wordle PRIVATE res/Wordle.rc)
+target_link_libraries(Wordle gtk-3 gobject-2.0 gio-2.0 glib-2.0 pango-1.0)
 install(FILES ${GTK_DIR}/bin/gtk-3-vs17.dll DESTINATION Wordle)
 install(FILES ${GTK_DIR}/bin/gdk-3-vs17.dll DESTINATION Wordle)
 install(FILES ${GTK_DIR}/bin/gobject-2.0-0.dll DESTINATION Wordle)
@@ -90,5 +90,5 @@ install(FILES ${GTK_DIR}/bin/fontconfig-1.dll DESTINATION Wordle)
 install(FILES ${GTK_DIR}/bin/freetype-6.dll DESTINATION Wordle)
 install(FILES ${GTK_DIR}/bin/libpng16.dll DESTINATION Wordle)
 install(FILES ${GTK_DIR}/bin/expat.dll DESTINATION Wordle)
-install(TARGETS wordle DESTINATION Wordle)
+install(TARGETS Wordle DESTINATION Wordle)
 endif()

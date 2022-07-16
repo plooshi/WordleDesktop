@@ -34,7 +34,9 @@ void colorizeLabel(int val, int pos, GtkWidget *label) {
     char *format;
     gchar *markup;
     const gchar *text = gtk_label_get_text(GTK_LABEL(label));
-    if (val == 2) {
+    if (val == 3) {
+        format = "<span background=\"#ff0000\" foreground=\"#000000\"> %s </span>";
+    } else if (val == 2) {
         format = "<span background=\"#76ff03\" foreground=\"#000000\"> %s </span>";
     }
     else if (val == 1) {
@@ -53,6 +55,14 @@ void colorLabels() {
     colorizeLabel(scoreLetter(guessa[2], 2), 2, letter3);
     colorizeLabel(scoreLetter(guessa[3], 3), 3, letter4);
     colorizeLabel(scoreLetter(guessa[4], 4), 4, letter5);
+}
+
+void redLabels() {
+    colorizeLabel(3, 0, letter1);
+    colorizeLabel(3, 1, letter2);
+    colorizeLabel(3, 2, letter3);
+    colorizeLabel(3, 3, letter4);
+    colorizeLabel(3, 4, letter5);
 }
 
 void colorOsk() {

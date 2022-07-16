@@ -19,7 +19,7 @@ bin
 Debug
 Release
 wordle.dir
-testing
+install
 Makefile
 install_manifest.txt
 build

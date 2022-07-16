@@ -2,18 +2,10 @@
 #include "wordles.h"
 #include "words.h"
 #include <time.h>
-#ifndef __APPLE__
-#include <malloc.h>
-#else
 #include <stdlib.h>
-#endif
 #include <string.h>
 #include <ctype.h>
-#ifdef _MSC_VER
-char *guess = "";
-#else
 char guess[6] = "";
-#endif
 char *guessa[5] = {" ", " ", " ", " ", " "};
 
 void lowerGuess() {

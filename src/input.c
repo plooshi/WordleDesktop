@@ -8,15 +8,16 @@
 
 
 bool dontAcceptKeys = false;
-int guesses = 0;
+int guessCount = 0;
+bool rl = false;
 
 
 void upGuessCount() {
-    guesses = guesses + 1;
+    guessCount = guessCount + 1;
 }
 
 bool isOutOfGuesses() {
-    if (guesses >= 6) {
+    if (guessCount >= 6) {
         return true;
     } else {
         return false;
@@ -28,14 +29,19 @@ gboolean handleKeys(GtkWidget *widget, GdkEventKey *event, gpointer user_data)
     gchar* key = event->string;
     guint keyval = event->keyval;
     if (dontAcceptKeys == true) {
-        #ifndef _MSC_VER
         resetGuess();
-        #endif
         return true;
     };
     if (keyval == GDK_KEY_Return) {
-        if (strlen(guess) < 5) return false;
-        if (!guessValid(guess)) return false;
+        if (strlen(guess) < 5) {
+            return false;
+        } else if (strlen(guess) == 5 && !guessValid(guess)) {
+            if (rl == false) {
+                redLabels();
+                rl = true;
+            }
+            return false;
+        }
         upGuessCount();
         
         
@@ -50,21 +56,20 @@ gboolean handleKeys(GtkWidget *widget, GdkEventKey *event, gpointer user_data)
         return true;
     }
     if (keyval == GDK_KEY_BackSpace) {
-        #ifdef _MSC_VER
-        char* ng = guess;
-        ng
-        #else
-        guess
-        #endif
-        [strlen(guess)-1] = '\0';
-        #ifdef _MSC_VER
-        ng = "";
-        #endif
+        if (strlen(guess) == 0) return false;
+        guess[strlen(guess)-1] = '\0';
         updateGuessArray();
         refreshLabels();
+        rl = false;
         return true;
     }
-    if (strlen(guess) >= 5) return false;
+    if (strlen(guess) >= 5) {
+        if (!guessValid(guess) && rl == false) {
+            redLabels();
+            rl = true;
+        };
+        return false;
+    }
     if (!((char)key[0] >= 'a' && (char)key[0] <= 'z') || ((char)key[0] >= 'A' && (char)key[0] <= 'Z')) return false;
     #ifdef _MSC_VER
         strcat_s(guess, 6, (char*)key);

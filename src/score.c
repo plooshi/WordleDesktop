@@ -5,14 +5,14 @@
 #include <string.h>
 
 bool checkWin() {
-    if (
-        scoreLetter(guessa[0], 0) == 2 && 
-        scoreLetter(guessa[1], 1) == 2 && 
-        scoreLetter(guessa[2], 2) == 2 && 
-        scoreLetter(guessa[3], 3) == 2 && 
-        scoreLetter(guessa[4], 4) == 2
-    ) return true;
-    return false;
+    bool won = true;
+    for (int i = 0; i < 5; i++) {
+        if (scoreLetter(guessa[i], i) != 2) {
+            won = false;
+            break; 
+        }
+    }
+    return won;
 }
 
 bool shouldRepeat(int pos, char ltr) {
